@@ -35,7 +35,7 @@ pipeline {
                 }   
             }
         }
-        stage {
+        stage('Slack Notification') {
             slackSend baseUrl: 'https://hooks.slack.com/services/', 
             channel: 'jenkins-pipeline-demo', 
             color: 'good', 
