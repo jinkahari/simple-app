@@ -41,7 +41,7 @@ pipeline {
                 channel: 'jenkins-pipeline-demo', 
                 color: 'good', 
                 message: 'Welcome to Slack', 
-                teamDomain: '#devops', 
+                teamDomain: '#DevOps', 
                 tokenCredentialId: 'slack-demo', 
                 username:'jinkahariprasad'
             }    
