@@ -10,7 +10,7 @@ pipeline {
                 sh script: 'mvn clean package'   
             }
         }
-        tage('Upload war to nexus'){
+        stage('Upload war to nexus'){
             steps {
                 nexusArtifactUploader artifacts: [
                     [artifactId: 'simple-app', classifier: '',
