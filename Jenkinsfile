@@ -43,7 +43,7 @@ pipeline {
                 message: 'Welcome to Slack', 
                 teamDomain: '#devops', 
                 tokenCredentialId: 'slack-demo', 
-                username: 'citikloud'
+                username:'jinkahariprasad'
             }    
         }
     }
