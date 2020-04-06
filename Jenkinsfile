@@ -36,13 +36,15 @@ pipeline {
             }
         }
         stage('Slack Notification') {
-            slackSend baseUrl: 'https://hooks.slack.com/services/', 
-            channel: 'jenkins-pipeline-demo', 
-            color: 'good', 
-            message: 'Welcome to Slack', 
-            teamDomain: '#devops', 
-            tokenCredentialId: 'slack-demo', 
-            username: 'citikloud'
+            steps{
+                slackSend baseUrl: 'https://hooks.slack.com/services/', 
+                channel: 'jenkins-pipeline-demo', 
+                color: 'good', 
+                message: 'Welcome to Slack', 
+                teamDomain: '#devops', 
+                tokenCredentialId: 'slack-demo', 
+                username: 'citikloud'
+            }    
         }
     }
 }
