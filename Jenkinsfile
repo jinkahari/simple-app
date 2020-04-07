@@ -17,9 +17,9 @@ pipeline {
             steps {
                 withSonarQubeEnv('jenkins-pipeline-sonar') {
                     // Optionally use a Maven environment you've configured already
-                    //withMaven(maven:'Maven 3.7') {
-                        sh 'mvn clean package sonar:sonar'
-                    //}
+                    withMaven(maven:'maven') {
+                        //sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
         }
