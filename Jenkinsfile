@@ -13,6 +13,11 @@ pipeline {
                 sh script: 'mvn clean package'   
             }
         }
+        stage('SonarQube analysis') {
+            withSonarQubeEnv('jenkins-pipeline-sonar') {
+            sh 'mvn clean package sonar:sonar'
+            } // submitted SonarQube taskId is automatically attached to the pipeline context
+        }
         stage('Upload war to nexus'){
             steps {
                 script {
