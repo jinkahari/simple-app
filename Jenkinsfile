@@ -1,9 +1,9 @@
 currentBuild.displayName=  "online-shopping-#"+currentBuild.number
 pipeline {
     agent any
-    //tools {
-      // maven 'maven'
-    //}
+    tools {
+        maven 'maven'
+    }
     options {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
@@ -17,9 +17,9 @@ pipeline {
             steps {
                 withSonarQubeEnv('jenkins-pipeline-sonar') {
                     // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'Maven 3.7') {
+                    //withMaven(maven:'Maven 3.7') {
                         sh 'mvn clean package sonar:sonar'
-                    }
+                    //}
                 }
             }
         }
