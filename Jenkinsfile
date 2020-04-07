@@ -15,8 +15,13 @@ pipeline {
         }
         stage('sonar'){
             steps {
-                sonarqube 'SonarQubeScanner', 'jenkins-pipeline-sonar'
-            }
+                script {
+                def scannerHome = tool 'TOOL_NAME';
+                withSonarQubeEnv('SERVER_NAME') {
+                sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }        
+        }
         }
         stage('Upload war to nexus'){
             steps {
