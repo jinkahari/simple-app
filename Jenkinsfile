@@ -8,30 +8,12 @@ pipeline {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
     stages {
-        //stage('Build Job'){
-            //steps {
-                //sh script: 'mvn clean package'   
-            //}
-        //}
-        stage('build && SonarQube analysis') {
+        stage('Build Job'){
             steps {
-                withSonarQubeEnv('jenkins-pipeline-sonar') {
-                    // Optionally use a Maven environment you've configured already
-                    withMaven(maven:'maven') {
-                        sh 'mvn clean package sonar:sonar'
-                    }
-                }
+                sh script: 'mvn clean package'   
             }
         }
-        stage("Quality Gate") {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
+        
         stage('Upload war to nexus'){
             steps {
                 script {
