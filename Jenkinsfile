@@ -8,11 +8,11 @@ pipeline {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
     stages {
-        stage('Build Job'){
-            steps {
-                sh script: 'mvn clean package'   
-            }
-        }
+        //stage('Build Job'){
+            //steps {
+                //sh script: 'mvn clean package'   
+            //}
+        //}
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('jenkins-pipeline-sonar') {
