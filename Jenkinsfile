@@ -14,6 +14,9 @@ pipeline {
             }
         }
         stage('SonarQube analysis') {
+            tools {
+                SonarQube 'SonarQube Scanner 4.0'
+            }
             steps {
                 withSonarQubeEnv('jenkins-pipeline-sonar') {
                sh 'sonar-scanner'
