@@ -13,16 +13,6 @@ pipeline {
                 sh script: 'mvn clean package'   
             }
         }
-        stage('sonar'){
-            steps {
-                script {
-                def scannerHome = tool 'SonarQubeScanner';
-                withSonarQubeEnv('jenkins-pipeline-sonar') {
-                sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }        
-        }
-        }
         stage('Upload war to nexus'){
             steps {
                 script {
