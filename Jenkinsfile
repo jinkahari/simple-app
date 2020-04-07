@@ -4,6 +4,9 @@ pipeline {
     tools {
         maven 'maven'
     }
+    tools {
+                sonarQube 'SonarQube Scanner 4.0'
+          }
     options {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
@@ -14,9 +17,6 @@ pipeline {
             }
         }
         stage('SonarQube analysis') {
-            tools {
-                sonarQube 'SonarQube Scanner 4.0'
-            }
             steps {
                 withSonarQubeEnv('sonarqube-scanner') {
                sh 'sonar-scanner'
