@@ -1,9 +1,9 @@
 currentBuild.displayName=  "online-shopping-#"+currentBuild.number
 pipeline {
     agent any
-    tools {
-       maven 'maven'
-    }
+    //tools {
+      // maven 'maven'
+    //}
     options {
         buildDiscarder logRotator(daysToKeepStr: '5', numToKeepStr: '7')
     }
@@ -13,12 +13,24 @@ pipeline {
                 //sh script: 'mvn clean package'   
             //}
         //}
-        stage('SonarQube analysis') {
+        stage('build && SonarQube analysis') {
             steps {
-                withSonarQubeEnv('jenkins-pipeline-sonar') {
-                sh script: 'mvn clean package sonar:sonar'
-                }    
-            } // submitted SonarQube taskId is automatically attached to the pipeline context
+                withSonarQubeEnv('jenkins-pipeline-sonar) {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.7') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
+            }
+        }
+        stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+                }
+            }
         }
         stage('Upload war to nexus'){
             steps {
