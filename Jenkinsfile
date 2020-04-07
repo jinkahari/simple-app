@@ -12,7 +12,12 @@ pipeline {
             steps {
                 sh script: 'mvn clean package'   
             }
-        }       
+        }
+        stage('sonar'){
+            steps {
+                sonarqube 'SonarQubeScanner', 'jenkins-pipeline-sonar'
+            }
+        }
         stage('Upload war to nexus'){
             steps {
                 script {
