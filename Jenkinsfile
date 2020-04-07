@@ -13,6 +13,16 @@ pipeline {
                 sh script: 'mvn clean package'   
             }
         }
+        stage('SonarQube analysis') {
+            tools {
+                sonarQube 'SonarQube Scanner 4.0'
+            }
+            steps {
+                withSonarQubeEnv('sonarqube-scanner') {
+               sh 'sonar-scanner'
+        }
+      }
+    }
         
         stage('Upload war to nexus'){
             steps {
